@@ -1,13 +1,20 @@
 package edu.nju.dbhomework;
 
-import edu.nju.dbhomework.crawler.TrainScheduleCrawler;
+import edu.nju.dbhomework.dataInit.crawler.TrainScheduleCrawler;
+import edu.nju.dbhomework.dataInit.repository.TrainRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 public class DbHomeworkApplication {
 
 	public static void main(String[] args) {
-		System.out.println(new TrainScheduleCrawler().getSchedule(164));
+		ApplicationContext c = SpringApplication.run(DbHomeworkApplication.class);
+		c.getBean(TrainRepository.class);
+
 	}
 }

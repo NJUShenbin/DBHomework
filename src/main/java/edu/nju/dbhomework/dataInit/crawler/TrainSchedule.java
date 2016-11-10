@@ -1,7 +1,6 @@
-package edu.nju.dbhomework.crawler;
+package edu.nju.dbhomework.dataInit.crawler;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by sbin on 2016/11/8.
@@ -30,6 +29,7 @@ public class TrainSchedule implements Comparable<TrainSchedule>{
     public String toString() {
         return "TrainSchedule{" +
                 "station='" + station + '\'' +
+
                 '}';
     }
 

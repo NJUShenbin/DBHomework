@@ -1,5 +1,6 @@
-package edu.nju.dbhomework.crawler;
+package edu.nju.dbhomework.dataInit.crawler;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -9,11 +10,13 @@ import java.util.stream.Collectors;
 /**
  * Created by sbin on 2016/11/8.
  */
+@Component
 public class TrainScheduleCrawler {
 
     RestTemplate restTemplate;
 
     public TrainScheduleCrawler(){
+        System.out.println("crawler");
         restTemplate = new RestTemplate();
     }
 

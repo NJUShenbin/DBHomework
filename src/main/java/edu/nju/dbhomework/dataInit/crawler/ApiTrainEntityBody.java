@@ -1,4 +1,4 @@
-package edu.nju.dbhomework.crawler;
+package edu.nju.dbhomework.dataInit.crawler;
 
 import java.util.List;
 

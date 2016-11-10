@@ -1,7 +1,6 @@
-package edu.nju.dbhomework.crawler;
+package edu.nju.dbhomework.dataInit.crawler;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by sbin on 2016/11/8.
