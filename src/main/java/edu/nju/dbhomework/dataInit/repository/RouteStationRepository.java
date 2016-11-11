@@ -1,5 +1,6 @@
 package edu.nju.dbhomework.dataInit.repository;
 
+import edu.nju.dbhomework.dataInit.entity.RouteEntity;
 import edu.nju.dbhomework.dataInit.entity.RouteStationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,8 @@ import java.util.List;
  */
 public interface RouteStationRepository extends
         CrudRepository<RouteStationEntity,Integer> {
+
+    @Query("select e from RouteStationEntity e where e.routeByRouteId = ?1 and e.order=?2")
+    RouteStationEntity findFirstStation(RouteEntity routeEntity,int order);
 
 }

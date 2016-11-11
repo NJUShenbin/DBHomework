@@ -14,5 +14,8 @@
     <mapping class="edu.nju.dbhomework.dataInit.entity.RouteStationEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.TicketEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.RouteStationEntity"/>
+    <mapping class="edu.nju.dbhomework.dataInit.entity.ScheduleEntity"/>
+    <mapping class="edu.nju.dbhomework.dataInit.entity.ReserveSeatEntity"/>
+    <mapping class="edu.nju.dbhomework.dataInit.entity.SeatEntity"/>
   </session-factory>
 </hibernate-configuration>

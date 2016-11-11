@@ -1,17 +1,18 @@
 package edu.nju.dbhomework.dataInit.init;
 
+import com.google.common.collect.Lists;
 import edu.nju.dbhomework.dataInit.entity.*;
-import edu.nju.dbhomework.dataInit.repository.RouteRepository;
-import edu.nju.dbhomework.dataInit.repository.RouteStationRepository;
-import edu.nju.dbhomework.dataInit.repository.StationRepository;
-import edu.nju.dbhomework.dataInit.repository.TrainRepository;
+import edu.nju.dbhomework.dataInit.entity.ReserveSeatEntity;
+import edu.nju.dbhomework.dataInit.repository.*;
+import edu.nju.dbhomework.util.Increaser;
+import edu.nju.dbhomework.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.sql.Date;
 import java.util.stream.Collectors;
 
 /**
@@ -37,6 +38,12 @@ public class TrainDataInitializer {
     @Autowired
     private RouteStationRepository routeStationRepository;
 
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private ReserveSeatRepository reserveSeatRepository;
+
     @PersistenceContext
     EntityManager manager;
 
@@ -47,6 +54,35 @@ public class TrainDataInitializer {
 //        initStations();
 //        initRoutes();
 //        initTrains();
+//        initSchedule();
+//        initReserve();
+        initSeats();
+
+    }
+
+    private void initSeats() {
+        
+
+    }
+
+    private void initReserve() {
+
+        Map<Integer,String> firstStationMap = new HashMap<>();
+
+        routeRepository.findAll().forEach(routeEntity -> {
+            String station = routeStationRepository.findFirstStation(routeEntity,0).getStation();
+            firstStationMap.put(routeEntity.getId(),station);
+        });
+
+        scheduleRepository.findAll().forEach(scheduleEntity -> {
+            ReserveSeatEntity entity = new ReserveSeatEntity();
+            entity.setOrder(0);
+            entity.setReserve(100);
+            entity.setScheduleId(scheduleEntity.getId());
+            entity.setStation(firstStationMap.get(scheduleEntity.getRouteId()));
+            reserveSeatRepository.save(entity);
+        });
+
 
     }
 
@@ -79,6 +115,41 @@ public class TrainDataInitializer {
         routeRepository.save(entities);
         entities.forEach(route -> routeStationRepository.save(route.getRouteStations()));
 
+    }
+
+    private void initSchedule(){
+
+        Map<String,Integer> trainNumMap = new HashMap<>();
+        Increaser increaser = new Increaser(0);
+        routeRepository.findAll().forEach(routeEntity -> {
+            trainNumMap.put("G"+increaser.increase(),routeEntity.getId());
+        });
+
+        List<Integer> trainIds = Lists.newArrayList(trainRepository.findAll())
+                .stream()
+                .map(TrainEntity::getId)
+                .collect(Collectors.toList());
+
+        Increaser trainIdIncreaser = new Increaser(0);
+
+        for(int i=0;i<7;i++){
+            Date departDate = TimeUtil.afterDays(new java.util.Date(),i);
+
+            List<ScheduleEntity> scheduleEntities = new ArrayList<>();
+            trainNumMap.forEach((trainNum,routeId)->{
+                ScheduleEntity scheduleEntity = new ScheduleEntity();
+
+                scheduleEntity.setTrainNum(trainNum);
+                scheduleEntity.setRouteId(routeId);
+                scheduleEntity.setDepartDate(departDate);
+                scheduleEntity.setTrainId(trainIds.get(increaser.increase()%trainIds.size()));
+
+                scheduleEntities.add(scheduleEntity);
+
+            });
+
+            scheduleRepository.save(scheduleEntities);
+        }
     }
 
 }
