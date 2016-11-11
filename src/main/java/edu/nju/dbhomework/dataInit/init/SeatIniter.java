@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.transaction.Transactional;
 import java.io.*;
@@ -41,6 +42,9 @@ public class SeatIniter {
     @Autowired
     private SeatRepository seatRepository;
 
+    @Autowired
+    private DBFileImporter importer;
+
     Logger logger = Logger.getLogger(this.getClass());
 
     @Transactional
@@ -56,6 +60,7 @@ public class SeatIniter {
                     +" completed");
         });
 
+        importer.importFile(seatFile,"seat");
 
     }
 

@@ -1,13 +1,7 @@
 package edu.nju.dbhomework.dataInit.init;
 
-import edu.nju.dbhomework.dataInit.entity.CoachEntity;
-import edu.nju.dbhomework.dataInit.entity.CoachType;
-import edu.nju.dbhomework.dataInit.entity.SeatEntity;
-import edu.nju.dbhomework.dataInit.entity.TrainEntity;
-import edu.nju.dbhomework.dataInit.repository.RouteStationRepository;
-import edu.nju.dbhomework.dataInit.repository.ScheduleRepository;
-import edu.nju.dbhomework.dataInit.repository.SeatRepository;
-import edu.nju.dbhomework.dataInit.repository.TrainRepository;
+import edu.nju.dbhomework.dataInit.entity.*;
+import edu.nju.dbhomework.dataInit.repository.*;
 import edu.nju.dbhomework.util.FileUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +23,7 @@ public class StandTicketIniter {
     private ScheduleRepository scheduleRepository;
 
     @Autowired
-    private RouteStationRepository routeStationRepository;
+    private RouteRepository routeRepository;
 
     @Autowired
     private TrainRepository trainRepository;
@@ -49,7 +43,12 @@ public class StandTicketIniter {
 
         scheduleRepository.findAll().forEach(scheduleEntity -> {
             TrainEntity trainEntity = trainRepository.findOne(scheduleEntity.getTrainId());
-            saveOneTrain(trainEntity,scheduleEntity.getId());
+
+            RouteEntity routeEntity = routeRepository
+                    .findOne(scheduleEntity.getRouteId());
+
+            saveOneTrain(trainEntity,routeEntity.getRouteStations().size()
+                    ,scheduleEntity.getId());
             logger.info("schedule id "+scheduleEntity.getId()
                     +" standing ticket init"
                     +" completed");
@@ -60,7 +59,8 @@ public class StandTicketIniter {
 
     }
 
-    public void saveOneTrain(TrainEntity trainEntity, int scheduleId){
+    public void saveOneTrain(TrainEntity trainEntity, int scheduleId
+        ,int routeLength){
 
         File standingFile = new File("standingTicketData.txt");
         BufferedWriter writer = null;
@@ -72,7 +72,7 @@ public class StandTicketIniter {
         }
 
         for(CoachEntity coachEntity : trainEntity.getCoachesById()){
-            saveOneCoach(coachEntity,scheduleId,writer);
+            saveOneCoach(coachEntity,scheduleId,routeLength,writer);
         }
 
         try {
@@ -83,7 +83,8 @@ public class StandTicketIniter {
     }
 
     public void saveOneCoach
-            (CoachEntity coachEntity,int scheduleId,BufferedWriter writer){
+            (CoachEntity coachEntity,int scheduleId,
+             int routeLength,BufferedWriter writer){
         if(! coachEntity.getType().equals(CoachType.s)){
             return;
         }

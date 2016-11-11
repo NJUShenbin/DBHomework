@@ -65,8 +65,8 @@ public class TrainDataInitializer {
 //        initTrains();
 //        initSchedule();
 //        initReserve();
-//        initSeats();
-        initStandingTicket();
+        initSeats();
+//        initStandingTicket();
 
     }
 
