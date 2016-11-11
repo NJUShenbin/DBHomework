@@ -1,7 +1,7 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
-#*Data.txt
+*Data.txt
 ### STS ###
 .apt_generated
 .classpath
