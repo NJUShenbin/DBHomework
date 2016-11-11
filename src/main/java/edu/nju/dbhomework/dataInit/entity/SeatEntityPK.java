@@ -11,6 +11,7 @@ public class SeatEntityPK implements Serializable {
     private int scheduleId;
     private int coachOrder;
     private int row;
+    private String column;
 
     @Column(name = "scheduleId")
     @Id
@@ -40,6 +41,16 @@ public class SeatEntityPK implements Serializable {
 
     public void setRow(int row) {
         this.row = row;
+    }
+
+    @Column(name = "`column`")
+    @Id
+    public String getColumn() {
+        return column;
+    }
+
+    public void setColumn(String column) {
+        this.column = column;
     }
 
     @Override

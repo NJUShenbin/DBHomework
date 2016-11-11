@@ -44,6 +44,12 @@ public class TrainDataInitializer {
     @Autowired
     private ReserveSeatRepository reserveSeatRepository;
 
+    @Autowired
+    private SeatRepository seatRepository;
+
+    @Autowired
+    private SeatIniter seatIniter;
+
     @PersistenceContext
     EntityManager manager;
 
@@ -61,8 +67,7 @@ public class TrainDataInitializer {
     }
 
     private void initSeats() {
-        
-
+        seatIniter.initSeats();
     }
 
     private void initReserve() {

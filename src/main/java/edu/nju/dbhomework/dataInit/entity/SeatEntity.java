@@ -45,6 +45,7 @@ public class SeatEntity {
         this.row = row;
     }
 
+    @Id
     @Column(name = "`column`")
     public String getColumn() {
         return column;

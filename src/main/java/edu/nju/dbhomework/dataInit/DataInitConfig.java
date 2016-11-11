@@ -3,6 +3,7 @@ package edu.nju.dbhomework.dataInit;
 import edu.nju.dbhomework.dataInit.crawler.TrainScheduleCrawler;
 import edu.nju.dbhomework.dataInit.init.CoachFactory;
 import edu.nju.dbhomework.dataInit.init.RouteReader;
+import edu.nju.dbhomework.dataInit.init.SeatIniter;
 import edu.nju.dbhomework.dataInit.init.TrainDataInitializer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,11 @@ public class DataInitConfig {
     @Bean
     CoachFactory coachFactory(){
         return new CoachFactory();
+    }
+
+    @Bean
+    SeatIniter seatIniter() {
+        return new SeatIniter();
     }
 
 }
