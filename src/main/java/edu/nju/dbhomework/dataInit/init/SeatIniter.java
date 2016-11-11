@@ -12,16 +12,15 @@ import edu.nju.dbhomework.dataInit.repository.RouteStationRepository;
 import edu.nju.dbhomework.dataInit.repository.ScheduleRepository;
 import edu.nju.dbhomework.dataInit.repository.SeatRepository;
 import edu.nju.dbhomework.dataInit.repository.TrainRepository;
+import edu.nju.dbhomework.util.FileUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 import javax.transaction.Transactional;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -42,19 +41,21 @@ public class SeatIniter {
     @Autowired
     private SeatRepository seatRepository;
 
+    Logger logger = Logger.getLogger(this.getClass());
+
     @Transactional
     public void initSeats(){
 
+        File seatFile = FileUtil.forceCreateFile("seatData.txt");
         scheduleRepository.findAll().forEach(scheduleEntity -> {
 
             TrainEntity trainEntity = trainRepository.findOne(scheduleEntity.getTrainId());
             saveOneTrain(trainEntity,scheduleEntity.getId());
-            System.out.println(scheduleEntity.getId() +" completed");
+            logger.info("schedule id "+scheduleEntity.getId()
+                    +" seats init"
+                    +" completed");
         });
 
-//        ScheduleEntity scheduleEntity = scheduleRepository.findOne(2);
-//        TrainEntity trainEntity = trainRepository.findOne(scheduleEntity.getTrainId());
-//        saveOneTrain(trainEntity,scheduleEntity.getId());
 
     }
 
@@ -68,12 +69,11 @@ public class SeatIniter {
 
         String[] columnCode = {"A","B","C","D","E","F"};
 
-        Resource resource = new FileSystemResource("seatData.txt");
+        File seatFile = new File("seatData.txt");
         BufferedWriter writer = null;
         try {
-            writer =
-                    Files.newWriter(resource.getFile(), Charsets.UTF_8);
-            writer.
+            FileWriter fw = new FileWriter(seatFile, true);
+            writer = new BufferedWriter(fw);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,6 +86,7 @@ public class SeatIniter {
                 seatEntity.setRow(row);
                 seatEntity.setColumn(columnCode[column]);
                 seatEntity.setOccupation(0);
+                seatEntity.setCoachId(coachEntity.getId());
 
                 writeOneSeat(writer,seatEntity);
 //                seatRepository.save(seatEntity);
@@ -102,6 +103,7 @@ public class SeatIniter {
     private void writeOneSeat(BufferedWriter writer,SeatEntity entity){
         try {
             writer.append(entity.getScheduleId()+"\t"
+                    +entity.getCoachId()+"\t"
                     +entity.getCoachOrder()+"\t"
                     +entity.getRow()+"\t"
                     +entity.getColumn()+"\t"

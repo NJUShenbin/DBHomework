@@ -50,6 +50,9 @@ public class TrainDataInitializer {
     @Autowired
     private SeatIniter seatIniter;
 
+    @Autowired
+    private StandTicketIniter standTicketIniter;
+
     @PersistenceContext
     EntityManager manager;
 
@@ -62,12 +65,17 @@ public class TrainDataInitializer {
 //        initTrains();
 //        initSchedule();
 //        initReserve();
-        initSeats();
+//        initSeats();
+        initStandingTicket();
 
     }
 
     private void initSeats() {
         seatIniter.initSeats();
+    }
+
+    private void initStandingTicket(){
+        standTicketIniter.initStandingTicket();
     }
 
     private void initReserve() {

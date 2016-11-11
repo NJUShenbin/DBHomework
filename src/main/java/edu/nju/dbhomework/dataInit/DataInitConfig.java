@@ -1,10 +1,7 @@
 package edu.nju.dbhomework.dataInit;
 
 import edu.nju.dbhomework.dataInit.crawler.TrainScheduleCrawler;
-import edu.nju.dbhomework.dataInit.init.CoachFactory;
-import edu.nju.dbhomework.dataInit.init.RouteReader;
-import edu.nju.dbhomework.dataInit.init.SeatIniter;
-import edu.nju.dbhomework.dataInit.init.TrainDataInitializer;
+import edu.nju.dbhomework.dataInit.init.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,4 +38,13 @@ public class DataInitConfig {
         return new SeatIniter();
     }
 
+    @Bean
+    StandTicketIniter standTicketIniter(){
+        return new StandTicketIniter();
+    }
+
+    @Bean
+    DBFileImporter dbFileImporter(){
+        return new DBFileImporter();
+    }
 }

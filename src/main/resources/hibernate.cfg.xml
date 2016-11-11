@@ -17,5 +17,6 @@
     <mapping class="edu.nju.dbhomework.dataInit.entity.ScheduleEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.ReserveSeatEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.SeatEntity"/>
+    <mapping class="edu.nju.dbhomework.dataInit.entity.StandingticketremainEntity"/>
   </session-factory>
 </hibernate-configuration>

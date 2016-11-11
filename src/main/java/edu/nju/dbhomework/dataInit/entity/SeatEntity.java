@@ -13,6 +13,7 @@ public class SeatEntity {
     private int coachOrder;
     private int row;
     private int occupation;
+    private int coachId;
     private String column;
 
     @Id
@@ -63,6 +64,15 @@ public class SeatEntity {
 
     public void setOccupation(int occupation) {
         this.occupation = occupation;
+    }
+
+    @Column
+    public int getCoachId() {
+        return coachId;
+    }
+
+    public void setCoachId(int coachId) {
+        this.coachId = coachId;
     }
 
     @Override
