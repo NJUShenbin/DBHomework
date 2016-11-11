@@ -1,8 +1,6 @@
 package edu.nju.dbhomework.dataInit.init;
 
-import edu.nju.dbhomework.dataInit.entity.RouteEntity;
-import edu.nju.dbhomework.dataInit.entity.RouteStationEntity;
-import edu.nju.dbhomework.dataInit.entity.StationEntity;
+import edu.nju.dbhomework.dataInit.entity.*;
 import edu.nju.dbhomework.dataInit.repository.RouteRepository;
 import edu.nju.dbhomework.dataInit.repository.RouteStationRepository;
 import edu.nju.dbhomework.dataInit.repository.StationRepository;
@@ -12,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +21,9 @@ public class TrainDataInitializer {
 
     @Autowired
     RouteReader routeReader;
+
+    @Autowired
+    CoachFactory coachFactory;
 
     @Autowired
     private RouteRepository routeRepository;
@@ -43,7 +45,23 @@ public class TrainDataInitializer {
 
         //初始化车站
 //        initStations();
-        initRoutes();
+//        initRoutes();
+//        initTrains();
+
+    }
+
+    private void initTrains() {
+        List<String> nameList = Arrays.asList("富强","民主","文明","和谐","公正","法制","诚信","友爱");
+
+
+        for (int i=0;i<100;i++){
+            TrainEntity train = new TrainEntity();
+            int num = i%nameList.size();
+            train.setName(nameList.get(num)+(i/nameList.size()));
+
+            coachFactory.createTrainCoach(train);
+            trainRepository.save(train);
+        }
 
     }
 
@@ -56,27 +74,11 @@ public class TrainDataInitializer {
     }
 
     private void initRoutes(){
-//        System.out.println(routeReader.getRoutes());
-//        routeRepository.save(routeReader.getRoutes().get(0));
-//        List<RouteEntity> entities = routeReader.getRoutes();
-//        routeRepository.save(entities);
-//        System.out.println(routeStationRepository.findAll());
-//        RouteStationEntity routeStation = entities.get(0).getRouteStations().iterator().next();
-//        routeStationRepository.save(routeStation);
-//        routeStationRepository.findAll();
-//        RouteStationEntity routeStationEntity = new RouteStationEntity();
-//        routeStationEntity.setOrder(1);
-//        routeStationEntity.setId(100);
-//        routeStationRepository.save(routeStationEntity);
-        StationEntity stationEntity = new StationEntity();
-        stationEntity.setName("aaa");
-        stationRepository.save(stationEntity);
-        RouteStationEntity routeStation = routeStationRepository.findAll().iterator().next();
-        routeStation.setOrder(15);
-        routeStation.setId(100);
-        routeStationRepository.save(routeStation);
-//        routeStationRepository.save(new RouteStationEntity());
-//        routeRepository.save(new RouteEntity());
+
+        List<RouteEntity> entities = routeReader.getRoutes();
+        routeRepository.save(entities);
+        entities.forEach(route -> routeStationRepository.save(route.getRouteStations()));
+
     }
 
 }

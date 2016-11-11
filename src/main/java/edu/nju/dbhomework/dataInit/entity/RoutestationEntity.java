@@ -9,11 +9,13 @@ import java.sql.Time;
 @Entity
 @Table(name = "routestation")
 public class RouteStationEntity {
+    private int id;
     private int order;
     private int day;
+    private Time departTime;
     private String station;
-    private int id;
-    RouteEntity routeByRouteId;
+
+    private RouteEntity routeByRouteId;
 
     @ManyToOne
     @JoinColumn(name = "routeId", referencedColumnName = "id")
@@ -25,11 +27,8 @@ public class RouteStationEntity {
         this.routeByRouteId = routeByRouteId;
     }
 
-    private Time departTime;
-
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -39,6 +38,7 @@ public class RouteStationEntity {
         this.id = id;
     }
 
+    @Basic
     @Column(name = "`order`")
     public int getOrder() {
         return order;
@@ -59,6 +59,16 @@ public class RouteStationEntity {
     }
 
     @Basic
+    @Column(name = "departTime")
+    public Time getDepartTime() {
+        return departTime;
+    }
+
+    public void setDepartTime(Time departTime) {
+        this.departTime = departTime;
+    }
+
+    @Basic
     @Column(name = "station")
     public String getStation() {
         return station;
@@ -68,15 +78,6 @@ public class RouteStationEntity {
         this.station = station;
     }
 
-    @Column
-    public Time getDepartTime() {
-        return departTime;
-    }
-
-    public void setDepartTime(Time departTime) {
-        this.departTime = departTime;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,8 +85,10 @@ public class RouteStationEntity {
 
         RouteStationEntity that = (RouteStationEntity) o;
 
+        if (id != that.id) return false;
         if (order != that.order) return false;
         if (day != that.day) return false;
+        if (departTime != null ? !departTime.equals(that.departTime) : that.departTime != null) return false;
         if (station != null ? !station.equals(that.station) : that.station != null) return false;
 
         return true;
@@ -93,8 +96,10 @@ public class RouteStationEntity {
 
     @Override
     public int hashCode() {
-        int result = order;
+        int result = id;
+        result = 31 * result + order;
         result = 31 * result + day;
+        result = 31 * result + (departTime != null ? departTime.hashCode() : 0);
         result = 31 * result + (station != null ? station.hashCode() : 0);
         return result;
     }

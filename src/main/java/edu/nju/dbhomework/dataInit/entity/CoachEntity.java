@@ -9,14 +9,25 @@ import javax.persistence.*;
 @Table(name = "coach")
 public class CoachEntity {
     private int id;
-    private Integer capacity;
+    private int row;
+    private int column;
     private Integer order;
     private CoachType type;
 
     private TrainEntity trainByTrainId;
 
+    public CoachEntity(){}
+
+    public CoachEntity(CoachType type,int row,int column,Integer order ) {
+        this.order = order;
+        this.column = column;
+        this.row = row;
+        this.type = type;
+    }
+
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -25,18 +36,27 @@ public class CoachEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "capacity")
-    public Integer getCapacity() {
-        return capacity;
+    @Column
+    public int getRow() {
+        return row;
     }
 
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
+    public void setRow(int row) {
+        this.row = row;
     }
 
+    @Column(name = "`column`")
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+
     @Basic
-    @Column(name = "order")
+    @Column(name = "`order`")
     public Integer getOrder() {
         return order;
     }
@@ -46,6 +66,7 @@ public class CoachEntity {
     }
 
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     public CoachType getType() {
         return type;
     }
@@ -62,19 +83,11 @@ public class CoachEntity {
         CoachEntity that = (CoachEntity) o;
 
         if (id != that.id) return false;
-        if (capacity != null ? !capacity.equals(that.capacity) : that.capacity != null) return false;
         if (order != null ? !order.equals(that.order) : that.order != null) return false;
 
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
-        result = 31 * result + (order != null ? order.hashCode() : 0);
-        return result;
-    }
 
     @ManyToOne
     @JoinColumn(name = "trainId", referencedColumnName = "id")
@@ -82,7 +95,8 @@ public class CoachEntity {
         return trainByTrainId;
     }
 
-    public void setTrainByTrainId(TrainEntity trainByTrainId) {
+    public CoachEntity setTrainByTrainId(TrainEntity trainByTrainId) {
         this.trainByTrainId = trainByTrainId;
+        return this;
     }
 }

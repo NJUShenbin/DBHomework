@@ -57,8 +57,8 @@ public class RouteReader {
     public List<RouteEntity> getRoutes(){
 
         return trainNumList.stream()
-                .skip(180)
                 .map(num -> getOneEntity(num))
+                .filter(e -> e != null)
                 .collect(Collectors.toList());
 
     }
@@ -66,6 +66,11 @@ public class RouteReader {
     private RouteEntity getOneEntity(String trainNum){
 
         List<TrainSchedule> schedules = crawler.getSchedule(trainNum);
+
+        if(schedules.isEmpty()){
+            return null;
+        }
+
         RouteEntity route = new RouteEntity();
         Increaser increaser = new Increaser(0);
 

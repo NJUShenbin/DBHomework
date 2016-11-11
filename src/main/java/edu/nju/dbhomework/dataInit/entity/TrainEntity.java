@@ -1,6 +1,12 @@
 package edu.nju.dbhomework.dataInit.entity;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -11,10 +17,11 @@ import java.util.Collection;
 public class TrainEntity {
     private int id;
     private String name;
-    private Collection<CoachEntity> coachesById;
+    private Collection<CoachEntity> coachesById = new ArrayList<>();
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -54,6 +61,7 @@ public class TrainEntity {
     }
 
     @OneToMany(mappedBy = "trainByTrainId")
+    @Cascade(CascadeType.ALL)
     public Collection<CoachEntity> getCoachesById() {
         return coachesById;
     }

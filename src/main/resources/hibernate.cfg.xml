@@ -4,13 +4,15 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost:3306/dbhomework3</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/dbh</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <mapping class="edu.nju.dbhomework.dataInit.entity.CoachEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.TrainEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.RouteEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.RouteStationEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.StationEntity"/>
+    <mapping class="edu.nju.dbhomework.dataInit.entity.RouteStationEntity"/>
+    <mapping class="edu.nju.dbhomework.dataInit.entity.TicketEntity"/>
     <mapping class="edu.nju.dbhomework.dataInit.entity.RouteStationEntity"/>
   </session-factory>
 </hibernate-configuration>

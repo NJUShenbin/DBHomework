@@ -20,9 +20,15 @@ public class TrainScheduleCrawler {
     }
 
     public List<TrainSchedule> getSchedule(String trainNum){
+
+        System.out.println(trainNum);
         List<TrainSchedule> list = new ArrayList<>();
         ApiTrainEntity entity =
                 restTemplate.getForObject(getUrl(trainNum),ApiTrainEntity.class);
+
+        if(entity.getTrainScheduleBody()==null){
+            return new ArrayList<>();
+        }
 
         return entity.getTrainScheduleBody()
                 .stream()
@@ -37,7 +43,7 @@ public class TrainScheduleCrawler {
                 "&ex_track=bd_aladin_train_num_title" +
                 "&q=" +
                 trainNum +
-                "&date=20161109" +
+                "&date=20161115" +
                 "&format=json" +
                 "&cityname=123456" +
                 "&ver=1478572009295";

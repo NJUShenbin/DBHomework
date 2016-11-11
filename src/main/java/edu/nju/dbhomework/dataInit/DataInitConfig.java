@@ -1,6 +1,7 @@
 package edu.nju.dbhomework.dataInit;
 
 import edu.nju.dbhomework.dataInit.crawler.TrainScheduleCrawler;
+import edu.nju.dbhomework.dataInit.init.CoachFactory;
 import edu.nju.dbhomework.dataInit.init.RouteReader;
 import edu.nju.dbhomework.dataInit.init.TrainDataInitializer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -27,6 +28,11 @@ public class DataInitConfig {
     @Bean
     TrainScheduleCrawler trainScheduleCrawler(){
         return new TrainScheduleCrawler();
+    }
+
+    @Bean
+    CoachFactory coachFactory(){
+        return new CoachFactory();
     }
 
 }
