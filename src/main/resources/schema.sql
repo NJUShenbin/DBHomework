@@ -18,8 +18,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for coach
 -- ----------------------------
-DROP TABLE IF EXISTS `coach`;
-CREATE TABLE `coach` (
+CREATE TABLE IF NOT EXISTS  `coach` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` enum('b','f','s') DEFAULT 's',
   `capacity` int(11) DEFAULT '50',
@@ -37,8 +36,7 @@ CREATE TABLE `coach` (
 -- ----------------------------
 -- Table structure for reserveseat
 -- ----------------------------
-DROP TABLE IF EXISTS `reserveseat`;
-CREATE TABLE `reserveseat` (
+CREATE TABLE IF NOT EXISTS  `reserveseat` (
   `scheduleId` int(11) NOT NULL DEFAULT '0',
   `station` varchar(20) NOT NULL DEFAULT '0',
   `order` int(11) DEFAULT NULL,
@@ -56,8 +54,7 @@ CREATE TABLE `reserveseat` (
 -- ----------------------------
 -- Table structure for route
 -- ----------------------------
-DROP TABLE IF EXISTS `route`;
-CREATE TABLE `route` (
+CREATE TABLE IF NOT EXISTS  `route` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -69,8 +66,7 @@ CREATE TABLE `route` (
 -- ----------------------------
 -- Table structure for routestation
 -- ----------------------------
-DROP TABLE IF EXISTS `routestation`;
-CREATE TABLE `routestation` (
+CREATE TABLE IF NOT EXISTS  `routestation` (
   `routeId` int(11) NOT NULL,
   `order` int(11) NOT NULL,
   `day` int(11) NOT NULL DEFAULT '0',
@@ -89,8 +85,7 @@ CREATE TABLE `routestation` (
 -- ----------------------------
 -- Table structure for schedule
 -- ----------------------------
-DROP TABLE IF EXISTS `schedule`;
-CREATE TABLE `schedule` (
+CREATE TABLE IF NOT EXISTS  `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `trainId` int(11) NOT NULL,
   `routeId` int(11) NOT NULL,
@@ -111,8 +106,7 @@ CREATE TABLE `schedule` (
 -- ----------------------------
 -- Table structure for seat
 -- ----------------------------
-DROP TABLE IF EXISTS `seat`;
-CREATE TABLE `seat` (
+CREATE TABLE IF NOT EXISTS  `seat` (
   `scheduleId` int(32) NOT NULL,
   `coachOrder` int(32) NOT NULL DEFAULT '0',
   `row` int(11) NOT NULL DEFAULT '0',
@@ -129,8 +123,7 @@ CREATE TABLE `seat` (
 -- ----------------------------
 -- Table structure for standingticketremain
 -- ----------------------------
-DROP TABLE IF EXISTS `standingticketremain`;
-CREATE TABLE `standingticketremain` (
+CREATE TABLE IF NOT EXISTS  `standingticketremain` (
   `scheduleId` int(11) NOT NULL,
   `coachId` int(11) NOT NULL,
   `remain` varchar(255) NOT NULL,
@@ -149,8 +142,7 @@ CREATE TABLE `standingticketremain` (
 -- ----------------------------
 -- Table structure for station
 -- ----------------------------
-DROP TABLE IF EXISTS `station`;
-CREATE TABLE `station` (
+CREATE TABLE IF NOT EXISTS  `station` (
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -162,8 +154,7 @@ CREATE TABLE `station` (
 -- ----------------------------
 -- Table structure for ticket
 -- ----------------------------
-DROP TABLE IF EXISTS `ticket`;
-CREATE TABLE `ticket` (
+CREATE TABLE IF NOT EXISTS  `ticket` (
   `userId` varchar(20) NOT NULL COMMENT '身份证号',
   `id` int(11) NOT NULL,
   `departDate` datetime NOT NULL,
@@ -182,8 +173,7 @@ CREATE TABLE `ticket` (
 -- ----------------------------
 -- Table structure for train
 -- ----------------------------
-DROP TABLE IF EXISTS `train`;
-CREATE TABLE `train` (
+CREATE TABLE IF NOT EXISTS `train` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),

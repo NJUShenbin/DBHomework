@@ -10,9 +10,10 @@ import java.util.Collection;
 @Table(name = "route")
 public class RouteEntity {
     private int id;
-    private Collection<RoutestationEntity> routestations;
+    private Collection<RouteStationEntity> routeStations;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -40,11 +41,12 @@ public class RouteEntity {
     }
 
     @OneToMany(mappedBy = "routeByRouteId")
-    public Collection<RoutestationEntity> getRoutestations() {
-        return routestations;
+    public Collection<RouteStationEntity> getRouteStations() {
+        return routeStations;
     }
 
-    public void setRoutestations(Collection<RoutestationEntity> routestations) {
-        this.routestations = routestations;
+    public void setRouteStations(Collection<RouteStationEntity> routestations) {
+        this.routeStations = routestations;
     }
+
 }

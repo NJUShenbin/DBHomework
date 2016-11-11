@@ -27,6 +27,12 @@ public class ApiTrainEntityBody {
         if(time.equals("终到站")){
             time = content.get(3);
         }
-        return new TrainSchedule(content.get(1),time);
+        int day = 0;
+
+        if(content.get(2).equals("第二天")){
+            day = 1;
+        }
+
+        return new TrainSchedule(content.get(1),time,day);
     }
 }

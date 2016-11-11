@@ -13,6 +13,13 @@ import javax.persistence.Table;
 public class StationEntity {
     private String name;
 
+    public StationEntity(String name) {
+        this.name = name;
+    }
+
+    public StationEntity() {
+    }
+
     @Id
     @Column(name = "name")
     public String getName() {

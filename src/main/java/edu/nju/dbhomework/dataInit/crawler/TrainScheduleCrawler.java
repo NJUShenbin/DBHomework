@@ -16,11 +16,10 @@ public class TrainScheduleCrawler {
     RestTemplate restTemplate;
 
     public TrainScheduleCrawler(){
-        System.out.println("crawler");
         restTemplate = new RestTemplate();
     }
 
-    public List<TrainSchedule> getSchedule(int trainNum){
+    public List<TrainSchedule> getSchedule(String trainNum){
         List<TrainSchedule> list = new ArrayList<>();
         ApiTrainEntity entity =
                 restTemplate.getForObject(getUrl(trainNum),ApiTrainEntity.class);
@@ -32,11 +31,11 @@ public class TrainScheduleCrawler {
                 .collect(Collectors.toList());
     }
 
-    private String getUrl(int trainNum){
+    private String getUrl(String trainNum){
         return "http://train.qunar.com/qunar/checiInfo.jsp?" +
                 "method_name=buy" +
                 "&ex_track=bd_aladin_train_num_title" +
-                "&q=G" +
+                "&q=" +
                 trainNum +
                 "&date=20161109" +
                 "&format=json" +

@@ -1,5 +1,6 @@
 package edu.nju.dbhomework.dataInit.crawler;
 
+import java.sql.Time;
 import java.util.Calendar;
 
 /**
@@ -8,9 +9,10 @@ import java.util.Calendar;
 public class TrainSchedule implements Comparable<TrainSchedule>{
 
     String station;
-    Calendar time;
+    Time time;
+    int day;
 
-    public TrainSchedule(String station,String timeString){
+    public TrainSchedule(String station,String timeString,int day){
         this.station = station;
 
         int hour = Integer.parseInt
@@ -19,9 +21,7 @@ public class TrainSchedule implements Comparable<TrainSchedule>{
         int minute = Integer.parseInt
                 (timeString.split(":")[1]);
 
-        time = Calendar.getInstance();
-        time.set(Calendar.HOUR_OF_DAY,hour);
-        time.set(Calendar.MINUTE,minute);
+        time = new Time(hour,minute,0);
 
     }
 
@@ -36,5 +36,17 @@ public class TrainSchedule implements Comparable<TrainSchedule>{
     @Override
     public int compareTo(TrainSchedule o) {
         return time.compareTo(o.time);
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public int getDay() {
+        return day;
     }
 }
