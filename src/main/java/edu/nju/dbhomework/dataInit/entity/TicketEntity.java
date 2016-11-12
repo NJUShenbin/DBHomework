@@ -1,6 +1,7 @@
 package edu.nju.dbhomework.dataInit.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 /**
  * Created by sbin on 2016/11/11.
@@ -10,6 +11,8 @@ import javax.persistence.*;
 public class TicketEntity {
     private String userId;
     private int id;
+    private Date arriveDate;
+    private Date departDate;
     private String seat;
     private String startStation;
     private String endStation;
@@ -84,6 +87,24 @@ public class TicketEntity {
 
     public void setSeatType(String seatType) {
         this.seatType = seatType;
+    }
+
+    @Column
+    public Date getArriveDate() {
+        return arriveDate;
+    }
+
+    public void setArriveDate(Date arriveDate) {
+        this.arriveDate = arriveDate;
+    }
+
+    @Column
+    public Date getDepartDate() {
+        return departDate;
+    }
+
+    public void setDepartDate(Date departDate) {
+        this.departDate = departDate;
     }
 
     @Override

@@ -47,8 +47,8 @@ public class StandTicketIniter {
             RouteEntity routeEntity = routeRepository
                     .findOne(scheduleEntity.getRouteId());
 
-            saveOneTrain(trainEntity,routeEntity.getRouteStations().size()
-                    ,scheduleEntity.getId());
+            saveOneTrain(trainEntity,scheduleEntity.getId(),
+                    routeEntity.getRouteStations().size());
             logger.info("schedule id "+scheduleEntity.getId()
                     +" standing ticket init"
                     +" completed");
@@ -92,7 +92,7 @@ public class StandTicketIniter {
             writer.write(scheduleId+"\t"
                     +coachEntity.getId()+"\t"
                     +coachEntity.getOrder()+"\t"
-                    +(coachEntity.getColumn()*coachEntity.getRow()/10)
+                    +remainString(coachEntity,routeLength)
                     +"\n"
             );
         } catch (IOException e) {
@@ -101,6 +101,14 @@ public class StandTicketIniter {
 
     }
 
-//    private String get
-// TODO: 2016/11/11  
+    private String remainString(CoachEntity coachEntity,int routeLength){
+        StringBuilder builder = new StringBuilder();
+        for(int i=0;i<routeLength;i++){
+            builder.append(",");
+            builder.append(coachEntity.getColumn()*coachEntity.getRow()/10);
+        }
+
+        return builder.substring(1);
+    }
+
 }

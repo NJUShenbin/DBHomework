@@ -1,6 +1,7 @@
 package edu.nju.dbhomework.dataInit.init;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
@@ -112,12 +113,16 @@ public class SeatIniter {
                     +entity.getCoachOrder()+"\t"
                     +entity.getRow()+"\t"
                     +entity.getColumn()+"\t"
-                    +entity.getOccupation()+"\n"
+                    +computeOccupationBinary(entity)+"\n"
             );
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private String computeOccupationBinary(SeatEntity coachEntity){
+        return ""+(char)coachEntity.getOccupation();
     }
 
 }

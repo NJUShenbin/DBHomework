@@ -16,8 +16,8 @@ public class DBFileImporter {
 
     public void importFile(File file,String tableName){
 
-//        String deleteSql = "delete from "+tableName;
-//        jdbcTemplate.execute(deleteSql);
+        String deleteSql = "delete from "+tableName;
+        jdbcTemplate.execute(deleteSql);
 
         String sql = "LOAD DATA LOCAL INFILE " +
                 "'"+

@@ -60,13 +60,20 @@ public class TrainDataInitializer {
     public void init(){
 
         //初始化车站
-//        initStations();
-//        initRoutes();
-//        initTrains();
-//        initSchedule();
-//        initReserve();
+        initStations();
+        //初始化线路,爬取真实数据
+        initRoutes();
+        //初始化列车
+        initTrains();
+
+        //根据已有信息初始化时刻表
+        initSchedule();
+        //根据时刻表,初始化各站预留票数
+        initReserve();
+        //根据时刻表,初始化座位
         initSeats();
-//        initStandingTicket();
+        //根据时刻表初始化站票
+        initStandingTicket();
 
     }
 
