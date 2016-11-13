@@ -61,4 +61,16 @@ public class TicketSearchItem {
     public void setSecondClassSeat(int secondClassSeat) {
         this.secondClassSeat = secondClassSeat;
     }
+
+    @Override
+    public String toString() {
+        return "TicketSearchItem{" +
+                "trainNum='" + trainNum + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", businessSeat=" + businessSeat +
+                ", firstClassSeat=" + firstClassSeat +
+                ", secondClassSeat=" + secondClassSeat +
+                '}';
+    }
 }

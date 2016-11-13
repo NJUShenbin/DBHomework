@@ -1,5 +1,6 @@
 package edu.nju.dbhomework.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +13,15 @@ public class TimeUtil {
 
     public static String format(Date date,String format){
         return new SimpleDateFormat(format).format(date);
+    }
+
+    public static Date parse(String format,String date){
+        try {
+            return new SimpleDateFormat(format).parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static java.sql.Date afterDays(Date former,int offset){

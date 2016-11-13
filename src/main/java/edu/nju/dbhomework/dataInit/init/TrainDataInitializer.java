@@ -59,6 +59,11 @@ public class TrainDataInitializer {
     @PostConstruct
     public void init(){
 
+        //假如表里有数据了,就不再初始化
+        if(routeRepository.count()>0){
+            return;
+        }
+
         //初始化车站
         initStations();
         //初始化线路,爬取真实数据

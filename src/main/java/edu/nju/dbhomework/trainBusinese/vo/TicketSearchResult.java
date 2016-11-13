@@ -45,4 +45,14 @@ public class TicketSearchResult {
     public void setItems(List<TicketSearchItem> items) {
         this.items = items;
     }
+
+    @Override
+    public String toString() {
+        return "TicketSearchResult{" +
+                "startStation='" + startStation + '\'' +
+                ", endStation='" + endStation + '\'' +
+                ", departDate=" + departDate +
+                ", items=" + items +
+                '}';
+    }
 }
