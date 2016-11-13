@@ -21,14 +21,14 @@ public class DbHomeworkApplication {
 	public static void main(String[] args) {
 		ApplicationContext context =
 				SpringApplication.run(DbHomeworkApplication.class);
-
 		TicketController ticketController =
 				context.getBean(TicketController.class);
 
+		//下边三个变量可以修改
 		Date date = TimeUtil.parse("yyyy-MM-dd","2016-11-13");
-		System.out.println(date);
 		String startStation = "北京南";
 		String endStation = "宜兴";
+
 
 		long begin = System.currentTimeMillis();
 		ticketController.searchTicket(date,startStation,endStation);
